@@ -31,7 +31,6 @@ while True:
         else:
             saldo += cantidad
             ingresos += 1
-            print(f"Has ingresado {cantidad}. Saldo actual: {saldo}")
     # Si eliges 2 retiras dinero y sigue sin poder introducir una cantidad negativa
     elif opcion == 2:
         cantidad = float(input("Introduce la cantidad de dinero que quieres retirar: "))
@@ -40,7 +39,9 @@ while True:
         else:
             saldo -= cantidad
             retiradas += 1
-            print(f"Has retirado {cantidad}. Saldo actual: {saldo}")
+            if saldo < 0:
+                print("No tienes suficiente dinero para sacar")
+                saldo += cantidad
     # Si eliges 3 te mostrara la cantidad de dinero actual incluso despues de cada ingreso
     elif opcion == 3:
         print(f"La cantidad total de dinero actualmente es: {saldo}")
