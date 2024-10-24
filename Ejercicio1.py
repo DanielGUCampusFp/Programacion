@@ -1,42 +1,47 @@
 import random
 objetos = ['estaca', 'poción mágica', 'hechizo']
 monstruos = {'vampiro': 3, 'momia': 2, 'bruja': 4, 'esqueleto': 1, 'fantasma': 5 }
-intentos = 3
 
-        
-monstruos_lista = list(monstruos)
-elegir_monstruos = random.randint(1,5)
-monstruo_nombre = monstruos_lista[elegir_monstruos]
-monstruo_dificultad = monstruos[monstruo_nombre]
+def seleccionar_monstruo():
+    monstruos_lista = list(monstruos)
+    elegir_monstruos = random.randint(0,4)
+    monstruo_nombre = monstruos_lista[elegir_monstruos]
+    monstruo_dificultad = monstruos[monstruo_nombre]
+    return monstruo_nombre, monstruo_dificultad   
 
+def calcular_probabilidad(monstruo_dificultad):
+    # La probabilidad depende del nivel de dificultad: cuanto más alto, más difícil
+    probabilidad = 100 - (monstruo_dificultad * 18)  # Dificultad 1 = 82%, 2 = 64%, 3 = 46%, 4 = 28%, 5 = 10%
+    probabilidad_exito = random.randint(1, 100)
+    return probabilidad_exito <= probabilidad
 
-while intentos != 0:
+# Función principal de caza de monstruos
+def caza_monstruo():
     print("¡Bienvenido a la caza de monstruos de Halloween!")
-    print(f"Un/a {monstruo_nombre} ha aparecido con dificultad {monstruo_dificultad}.\n")
-    print(f"Tienes {intentos} intentos.")
-    print(f"Elige un objeto para intentar capturar al/a la {monstruo_nombre}: estaca, poción mágica, hechizo")
-    objeto = input("Escribe el nombre del objeto: ")
-    probabilidad_exito = random.randint(0,101)
-    probabilidad_monstruos = monstruo_dificultad * (probabilidad_exito / 100)
-    probabilidad_porcentaje_objetos = random.randint(0, probabilidad_exito)
-    probabilidad_objetos = probabilidad_porcentaje_objetos * (probabilidad_exito / 100)
+    monstruo, dificultad = seleccionar_monstruo()
+    print(f"\n¡Un {monstruo} ha aparecido con dificultad {dificultad}!")
 
-    if probabilidad_objetos > probabilidad_monstruos:
-        print("Has capturado el monstruo enhorabuena")
-        break
-    else:
-        print("Intento fallido, intentalo otra vez")
-        intentos = intentos - 1
-        print(f"Tienes {intentos} intentos restantes")
+    intentos = 3  # El jugador tiene 3 intentos
 
+    while intentos != 0:
+        print(f"\nTienes {intentos} intentos restantes.")
+        print(f"Elige un objeto para intentar capturar al {monstruo}: estaca, poción mágica, hechizo")
+        objeto = input("Escribe el nombre del objeto: ").lower()
 
+        if objeto not in objetos:
+            print(f"El objeto {objeto} no es válido. Por favor elige entre estaca, poción mágica o hechizo.")
+        
+        # Comprobamos si el jugador captura el monstruo
+        if calcular_probabilidad(dificultad):
+            print(f"¡Has capturado al {monstruo}!")
+            break
+        else:
+            print(f"Fallaste al intentar capturar al {monstruo}.")
+            
+        intentos -= 1
 
+    if intentos == 0:
+        print(f"\n¡El {monstruo} ha escapado! Mejor suerte la próxima vez.")
 
-
-
-
-'''
-print(f"Tienes {intentos_restantes} intentos restantes.")
-print(f"Elige un objeto para intentar capturar al {monstruo}: estaca, poción mágica, hechizo")
-objeto = input("Escribe el nombre del objeto:")
-print(respuesta_al_intento)Fallaste al intentar capturar al vampiro con un/a {objeto}.'''
+# Ejecutar el juego
+caza_monstruo()
