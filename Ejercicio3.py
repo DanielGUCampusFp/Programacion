@@ -7,6 +7,7 @@ while True:
     else:
         break
 
+
 def mostrar_menu():
     print("\nSelecciona una opción:")
     print("1 - Ingresar dinero")
@@ -15,9 +16,11 @@ def mostrar_menu():
     print("4 - Estadísticas")
     print("5 - Salir")
 
+
 # Determinar la cantidad de ingreso y retiradas al inicio
 ingresos = 0
 retiradas = 0
+
 
 # Bucle para repetir el programa todo el rato hasta pulsar 5
 while True:
