@@ -152,4 +152,52 @@ h2, h1 {
 <body>
     <div class="container mt-5">
         <h2>¡Bienvenido!</h2>
-       
+        <a href="logout.php" class="btn btn-danger mb-4">Cerrar sesión</a>
+        
+        <h1 class="text-center mb-4" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Lista de Tareas</h1>
+        
+        <!-- Tabla de tareas -->
+        <table class="table table-bordered table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción de la Tarea</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tareas as $tarea): ?>
+                    <tr>
+                        <td><?= $tarea['id'] ?></td>
+                        <td><?= $tarea['descripcion'] ?></td>
+                        <td><?= $tarea['estado'] ?></td>
+                        <td>
+                            <!-- Botón para editar la tarea -->
+                            <a href="editar_tarea.php?id=<?= $tarea['id'] ?>" class="btn btn-sm btn-warning">Editar</a>
+                            
+                            <!-- Botón para eliminar la tarea -->
+                            <a href="eliminar_tarea.php?id=1" class="btn btn-sm btn-danger" onclick="return confirmarEliminacion();">Eliminar</a>
+                            
+                            <!-- Botón para marcar como completada si aún no lo está -->
+                            <?php if ($tarea['estado'] !== 'Completada'): ?>
+                                <a href="marcar_como_completada.php?id=<?= $tarea['id']; ?>" class="btn btn-sm btn-success">Marcar como completada✅</a>
+                            <?php endif; ?>
+                            
+                            <!-- Botón para marcar como pendiente si no lo está -->
+                            <?php if ($tarea['estado'] !== 'Pendiente'): ?>
+                                <a href="marcar_como_pendiente.php?id=<?= $tarea['id']; ?>" class="btn btn-sm btn-success">Marcar como pendiente❌</a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <!-- Botón para agregar nueva tarea -->
+        <div class="text-center mt-4">
+            <a href="agregar_tarea.php" class="btn btn-primary mb-4">Agregar Tarea</a>
+        </div>
+    </div>
+</body>
+</html>
