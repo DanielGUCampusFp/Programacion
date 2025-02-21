@@ -116,7 +116,7 @@ label {
 
 <body>
     <h1>AGREGAR NUEVA RECETA</h1>
-    
+    <br>
     <form method="POST">
         <label for="receta">Nombre de la Receta:</label>
         <input type="text" id="receta" name="receta" class="form-control" required>
